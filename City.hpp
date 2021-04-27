@@ -5,7 +5,6 @@ namespace pandemic
     enum class City
     {
         Algiers,
-        Vertical,
         Atlanta,
         Baghdad,
         Bangkok,
