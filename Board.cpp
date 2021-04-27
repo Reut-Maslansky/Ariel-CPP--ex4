@@ -1,16 +1,17 @@
 #include "Board.hpp"
-#include "City.hpp"
 #include <iostream>
 
 using namespace std;
 
 namespace pandemic
 {
-    Board::Board(){};
-    bool Board::is_clean() {}
+    Board::Board(){}
+    
+    bool Board::is_clean() {return false;}
 
-    ostream &operator<<(ostream &os, const Board &b)
-    {
-        return os;
-    }
+    int &Board::operator[](City c) { return diseaseLevel.at(c); }
+
+    const int Board::operator[](City c) const { return diseaseLevel.at(c); }
+
+    ostream &operator<<(ostream &os, const Board &b) { return os; }
 };
