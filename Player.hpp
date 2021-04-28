@@ -8,6 +8,7 @@ namespace pandemic
 {
     class Player
     {
+    protected:
         Board myBoard;
         City myLocation;
         std::set<City> myCards;
