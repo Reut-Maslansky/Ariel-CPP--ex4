@@ -8,11 +8,15 @@ namespace pandemic
 {
     class Board
     {
-        std::map<City, int> diseaseLevel;
-        std::map<City, Color> colors;
-        std::map<City, bool> discoverCure;
-        std::map<City, bool> researchStation;
-        std::map<City, std::set<City>> neighbors;
+        static std::map<City, int> diseaseLevel;
+
+        static std::map<City, Color> colors;
+
+        static std::map<City, bool> discoverCure;
+
+        static std::map<City, bool> researchStation;
+
+        static std::map<City, std::set<City>> neighbors;
 
     public:
         Board();
