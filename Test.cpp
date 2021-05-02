@@ -86,6 +86,7 @@ TEST_CASE("Scientist Player")
 
 TEST_CASE("Researcher Player")
 {
+    board.remove_cures();
     board[City::HongKong] = 3;
 
     Researcher player{board, City::HongKong}; //Red
@@ -105,6 +106,7 @@ TEST_CASE("Researcher Player")
 
 TEST_CASE("Medic Player")
 {
+    board.remove_cures();
     board[City::SanFrancisco] = 5;
 
     Medic player{board, City::SanFrancisco};
@@ -137,6 +139,7 @@ TEST_CASE("Medic Player")
 
 TEST_CASE("Virologist Player")
 {
+    board.remove_cures();
     Virologist player{board, City::SanFrancisco};
     player.take_card(City::Essen)
         .take_card(City::Lima)
@@ -153,6 +156,7 @@ TEST_CASE("Virologist Player")
 
 TEST_CASE("GeneSplicer Player")
 {
+    board.remove_cures();
     GeneSplicer player{board, City::HoChiMinhCity};
     player.take_card(City::Essen)
         .take_card(City::Lima)
@@ -176,6 +180,7 @@ TEST_CASE("GeneSplicer Player")
 
 TEST_CASE("FieldDoctor Player")
 {
+    board.remove_cures();
     FieldDoctor player{board, City::Kolkata};
     player.take_card(City::Karachi)
         .take_card(City::HongKong)
