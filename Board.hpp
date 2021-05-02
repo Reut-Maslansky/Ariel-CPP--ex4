@@ -12,7 +12,7 @@ namespace pandemic
 
         static std::map<City, Color> colors;
 
-        static std::map<City, bool> discoverCure;
+        static std::map<Color, bool> discoverCure;
 
         static std::map<City, bool> researchStation;
 
