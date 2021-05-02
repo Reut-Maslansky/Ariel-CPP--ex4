@@ -20,4 +20,6 @@ namespace pandemic
     const int Board::operator[](City c) const { return diseaseLevel.at(c); }
 
     ostream &operator<<(ostream &os, const Board &b) { return os; }
+
+    void Board::remove_cures(){discoverCure.clear();}
 };
