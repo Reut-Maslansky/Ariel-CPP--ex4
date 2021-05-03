@@ -11,7 +11,7 @@ namespace pandemic
         Black
     };
 
-    static std::string getColors(Color c)
+    static std::string getColor(Color c)
     {
         switch (c)
         {

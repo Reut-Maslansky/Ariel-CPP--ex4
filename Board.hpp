@@ -18,6 +18,8 @@ namespace pandemic
         static std::map<City, bool> researchStation;
 
         static std::map<City, std::set<City>> neighbors;
+        
+        static std::map<City, std::string> getCity;
 
         Board();
 

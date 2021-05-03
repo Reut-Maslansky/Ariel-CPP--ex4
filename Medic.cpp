@@ -1,6 +1,7 @@
 #include "Medic.hpp"
 
 using namespace std;
+
 namespace pandemic
 {
     Medic::Medic(Board b, City c) : Player(b, c)
@@ -14,7 +15,6 @@ namespace pandemic
 
     Medic &Medic::drive(City c)
     {
-        // Player::drive(c);
         if (myBoard.neighbors.at(myLocation).count(c) == 0)
         {
             throw invalid_argument("Can't drive: This city is not a neighbor of the current city");
@@ -22,7 +22,7 @@ namespace pandemic
         myLocation = c;
         if (myBoard.discoverCure.at(myBoard.colors.at(c)) == true)
         {
-        myBoard[c] = 0;
+            myBoard[c] = 0;
         }
         return *this;
     }
@@ -38,12 +38,9 @@ namespace pandemic
         myLocation = c;
         if (myBoard.discoverCure.at(myBoard.colors.at(c)) == true)
         {
-        myBoard[c] = 0;
+            myBoard[c] = 0;
         }
-        // Player::fly_direct(c);
         return *this;
-
-    
     }
 
     Medic &Medic::fly_charter(City c)
@@ -55,31 +52,26 @@ namespace pandemic
         myCards.erase(myLocation);
         myColors.at(myBoard.colors.at(myLocation))--;
         myLocation = c;
-        // myBoard[c] = 0;
-        // // Player::fly_charter(c);
-        // return *this;
-        
+
         if (myBoard.discoverCure.at(myBoard.colors.at(c)) == true)
         {
-        myBoard[c] = 0;
+            myBoard[c] = 0;
         }
         return *this;
     }
 
     Medic &Medic::fly_shuttle(City c)
     {
-         if (myBoard.researchStation.at(myLocation) == false || myBoard.researchStation.at(c) == false)
+        if (myBoard.researchStation.at(myLocation) == false || myBoard.researchStation.at(c) == false)
         {
             throw invalid_argument("Can't fly: This city does not have a research station");
         }
 
         myLocation = c;
-        // myBoard[c] = 0;
-        // Player::fly_shuttle(c);
-        // return *this;
+
         if (myBoard.discoverCure.at(myBoard.colors.at(c)) == true)
         {
-        myBoard[c] = 0;
+            myBoard[c] = 0;
         }
         return *this;
     }
