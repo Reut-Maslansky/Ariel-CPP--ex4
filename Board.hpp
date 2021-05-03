@@ -8,6 +8,7 @@ namespace pandemic
 {
     class Board
     {
+    public:
         static std::map<City, int> diseaseLevel;
 
         static std::map<City, Color> colors;
@@ -18,7 +19,6 @@ namespace pandemic
 
         static std::map<City, std::set<City>> neighbors;
 
-    public:
         Board();
 
         bool is_clean();

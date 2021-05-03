@@ -54,7 +54,6 @@ TEST_CASE("Dispatcher Player")
 
     CHECK_NOTHROW(player.fly_direct(City::Washington));
     CHECK_NOTHROW(player.drive(City::Atlanta));
-    CHECK_NOTHROW(player.fly_direct(City::Lagos));
     CHECK_THROWS(player.fly_direct(City::SaoPaulo));
     OperationsExpert op{board, City::SaoPaulo};
     CHECK_NOTHROW(op.build());
@@ -66,7 +65,8 @@ TEST_CASE("Scientist Player")
     board[City::Miami] = 4;
 
     Scientist player{board, City::Miami, 3}; //Yellow
-    player.take_card(City::Bogota)           //Yellow
+    player.take_card(City::Miami)            //Yellow
+        .take_card(City::Bogota)             //Yellow
         .take_card(City::Atlanta)            //Blue
         .take_card(City::NewYork)            //Blue
         .take_card(City::Riyadh);            //Black
@@ -76,7 +76,7 @@ TEST_CASE("Scientist Player")
     OperationsExpert op{board, City::Miami};
     op.build();
     CHECK_THROWS(player.discover_cure(Color::Yellow));
-    player.take_card(City::Delhi); //Yellow
+    player.take_card(City::Johannesburg); //Yellow
     CHECK_NOTHROW(player.treat(City::Miami));
     CHECK(board[City::Miami] == 3);
     CHECK_NOTHROW(player.discover_cure(Color::Yellow));
@@ -90,7 +90,8 @@ TEST_CASE("Researcher Player")
     board[City::HongKong] = 3;
 
     Researcher player{board, City::HongKong}; //Red
-    player.take_card(City::Shanghai)          //Red
+    player.take_card(City::HongKong)          //Red
+        .take_card(City::Shanghai)            //Red
         .take_card(City::Osaka)               //Red
         .take_card(City::Tokyo)               //Red
         .take_card(City::Beijing);            //Red
@@ -121,7 +122,14 @@ TEST_CASE("Medic Player")
 
     board[City::Tokyo] = 3;
     CHECK_NOTHROW(player.fly_direct(City::Tokyo));
-    CHECK(board[City::Tokyo] == 0);
+    CHECK(board[City::Tokyo] == 3);
+
+    OperationsExpert op{board, City::Osaka};
+    CHECK_NOTHROW(op.build());
+    Scientist s{board, City::Osaka, 1};
+    s.take_card(City::Manila)
+        .take_card(City::Istanbul);
+    CHECK_NOTHROW(s.discover_cure(Color::Red));
 
     board[City::Osaka] = 4;
     CHECK_NOTHROW(player.drive(City::Osaka));
@@ -129,8 +137,20 @@ TEST_CASE("Medic Player")
 
     player.take_card(City::Osaka);
     board[City::Tehran] = 4;
+
+    CHECK_NOTHROW(s.discover_cure(Color::Black));
+
     CHECK_NOTHROW(player.fly_charter(City::Tehran));
     CHECK(board[City::Tehran] == 0);
+    player.take_card(City::Tehran);
+    CHECK_NOTHROW(player.build());
+
+    op.take_card(City::Miami);
+    CHECK_NOTHROW(op.fly_direct(City::Miami));
+    CHECK_NOTHROW(op.build());
+
+    s.take_card(City::Santiago);
+    CHECK_NOTHROW(s.discover_cure(Color::Yellow));
 
     board[City::Miami] = 7;
     CHECK_NOTHROW(player.fly_shuttle(City::Miami));
@@ -161,7 +181,8 @@ TEST_CASE("GeneSplicer Player")
     player.take_card(City::Essen)
         .take_card(City::Lima)
         .take_card(City::HoChiMinhCity)
-        .take_card(City::Lagos);
+        .take_card(City::Lagos)
+        .take_card(City::Johannesburg);
 
     CHECK(player.role() == string("GeneSplicer"));
 
@@ -170,6 +191,7 @@ TEST_CASE("GeneSplicer Player")
     CHECK_NOTHROW(player.treat(City::HoChiMinhCity));
     CHECK(board[City::HoChiMinhCity] == 5);
 
+    player.take_card(City::HoChiMinhCity);
     CHECK_NOTHROW(player.build());
     player.take_card(City::HoChiMinhCity);
 

@@ -3,7 +3,90 @@
 using namespace std;
 namespace pandemic
 {
-    Medic::Medic(Board b, City c) : Player(b, c) {}
+    Medic::Medic(Board b, City c) : Player(b, c)
+    {
+        if (myBoard.discoverCure.at(myBoard.colors.at(c)) == true)
+        {
+            myBoard[c] = 0;
+        }
+    }
     string Medic::role() { return "Medic"; }
-    Medic &Medic::treat(City c) { return *this; }
+
+    Medic &Medic::drive(City c)
+    {
+        // Player::drive(c);
+        if (myBoard.neighbors.at(myLocation).count(c) == 0)
+        {
+            throw invalid_argument("Can't drive: This city is not a neighbor of the current city");
+        }
+        myLocation = c;
+        if (myBoard.discoverCure.at(myBoard.colors.at(c)) == true)
+        {
+        myBoard[c] = 0;
+        }
+        return *this;
+    }
+
+    Medic &Medic::fly_direct(City c)
+    {
+        if (myCards.count(c) == 0)
+        {
+            throw invalid_argument("Can't fly: The player does not hold a matching card");
+        }
+        myCards.erase(c);
+        myColors.at(myBoard.colors.at(c))--;
+        myLocation = c;
+        if (myBoard.discoverCure.at(myBoard.colors.at(c)) == true)
+        {
+        myBoard[c] = 0;
+        }
+        // Player::fly_direct(c);
+        return *this;
+
+    
+    }
+
+    Medic &Medic::fly_charter(City c)
+    {
+        if (myCards.count(myLocation) == 0)
+        {
+            throw invalid_argument("Can't fly: The player does not hold a matching card");
+        }
+        myCards.erase(myLocation);
+        myColors.at(myBoard.colors.at(myLocation))--;
+        myLocation = c;
+        // myBoard[c] = 0;
+        // // Player::fly_charter(c);
+        // return *this;
+        
+        if (myBoard.discoverCure.at(myBoard.colors.at(c)) == true)
+        {
+        myBoard[c] = 0;
+        }
+        return *this;
+    }
+
+    Medic &Medic::fly_shuttle(City c)
+    {
+         if (myBoard.researchStation.at(myLocation) == false || myBoard.researchStation.at(c) == false)
+        {
+            throw invalid_argument("Can't fly: This city does not have a research station");
+        }
+
+        myLocation = c;
+        // myBoard[c] = 0;
+        // Player::fly_shuttle(c);
+        // return *this;
+        if (myBoard.discoverCure.at(myBoard.colors.at(c)) == true)
+        {
+        myBoard[c] = 0;
+        }
+        return *this;
+    }
+
+    Medic &Medic::treat(City c)
+    {
+        myBoard[c] = 0;
+        return *this;
+    }
 };

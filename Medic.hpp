@@ -10,6 +10,10 @@ namespace pandemic
     public:
         Medic(Board, City);
         std::string role();
+        Medic &drive(City);
+        Medic &fly_direct(City);
+        Medic &fly_charter(City);
+        Medic &fly_shuttle(City);
         Medic &treat(City);
     };
 }
